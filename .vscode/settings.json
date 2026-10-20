@@ -1,0 +1,23 @@
+{
+    "idf.currentSetup": "C:\\esp\\v6.0.1\\esp-idf",
+    "idf.flashType": "UART",
+    "idf.port": "COM18",
+    "idf.openOcdConfigs": [
+        "board/esp32c3-builtin.cfg"
+    ],
+    "idf.customExtraVars": {
+        "OPENOCD_USB_ADAPTER_LOCATION": "1-1"
+    },
+    "clangd.path": "C:\\Espressif\\tools\\esp-clang\\esp-20.1.1_20250829\\esp-clang\\bin\\clangd.exe",
+    "clangd.arguments": [
+      "--background-index",
+      "--query-driver=**",
+      "--compile-commands-dir=d:\\HUST\\Study\\Robot\\LangYa\\Electic_control\\Micro_Armor\\build"
+    ],
+    "idf.adapterTargetName": "esp32c3",
+    "idf.port": "COM18",
+    "idf.openOcdConfigs": [
+    "interface/esp_usb_jtag.cfg",
+    "target/esp32c3.cfg"
+  ]
+}

@@ -1,0 +1,42 @@
+menu "Micro Armor 配置"
+
+    config ARMOUR_BOOT_DIAG
+        bool "开机自动跑 锁红轮扫 + WS tone 诊断序列"
+        default n
+        help
+            灯带链路排查档：每次冷启动依次锁 4 边红色（各 3s）、然后 4 边连续
+            重发白帧（各 8s，供万用表测 WS 线 ~2.2V，全 1 码 67% 占空），无限重复。
+            关闭即直接进入灯效主循环（量产默认）。
+
+    config ARMOUR_DIAG_HOLD_HIGH
+        bool "万用表档：四边 WS 数据线恒拉高，不跑灯效"
+        default n
+        help
+            上电即把 GPIO10/5/6/7 配成推挽输出并恒为高（期望 ≈3.3V），不初始化
+            RMT、不进主循环。用于量数据线有没有真的驱动起来，以及逐段核对
+            MCU 脚 → 插座 pad1 → 首珠 DIN 的通断（三段都应读到同一电压）。
+            开启时优先于 ARMOUR_BOOT_DIAG。
+
+    config ARMOUR_DIAG_TONE_HOLD
+        bool "万用表档：四边 WS 线轮流常驻连续 tone 波形"
+        default n
+        help
+            初始化灯带驱动后，让四条 WS 线（GPIO10/5/6/7）轮流各持续 10s 发全白
+            帧（单通道一次只能占一根），不进主循环。表笔搭在被测插座 pad1 上不动：
+            某个窗口跳到 ≈2.2V（全 1 码 67% 占空）说明 RMT 正常且该 pad1 属于那一号
+            GPIO；四个窗口全程 0V 说明 RMT 根本没驱动脚，问题在驱动侧。
+            优先级：ARMOUR_DIAG_HOLD_HIGH > 本项 > ARMOUR_BOOT_DIAG。
+
+    config ARMOUR_BRIGHTNESS
+        int "灯带亮度初值 (1-60，单位 %)"
+        default 50
+        range 1 60
+        help
+            开机默认亮度（百分比），运行期由 KEY0 长按在 10~60% 间调，
+            奇数次长按 +10%、偶数次 -10%。
+            上限 60 是 USB 500mA 预算核定值（每颗全白 3×12mA=36mA，四边同白
+            12 颗≈432mA 已近上限），不是灯珠能力上限；改 range 前先重算
+            电流，见 按键点灯功能改造计划.md §5.1。
+            量纲曾是 0~255，改百分比时 sdkconfig 里的旧值要一起改。
+
+endmenu

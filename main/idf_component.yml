@@ -1,0 +1,2 @@
+# managed components：步骤 3 引入 espressif/led_strip，骨架阶段不拉取（免联网依赖）
+dependencies: {}

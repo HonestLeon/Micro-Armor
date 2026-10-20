@@ -1,0 +1,12 @@
+CONFIG_IDF_TARGET="esp32c3"
+# 控制台走 USB-C 原生 USB（本板无外部串口芯片）
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+# 模组后缀 -N4 即 4MB flash
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+# 量产默认：诊断全关，走主循环灯效
+# CONFIG_ARMOUR_BOOT_DIAG is not set
+# CONFIG_ARMOUR_BRIGHTNESS is not set  → 用 Kconfig 默认 50（百分比，上限 60 由 USB 预算定）
+# 万用表档：四边 WS 线恒拉高（量电平/通断），开启时优先于 BOOT_DIAG
+# CONFIG_ARMOUR_DIAG_HOLD_HIGH is not set
+# 万用表档：四边 WS 线轮流常驻真实 RMT 波形（直流档期望 ~2.2V）
+# CONFIG_ARMOUR_DIAG_TONE_HOLD is not set
