@@ -6,3 +6,7 @@ dependencies.lock
 __pycache__/
 # 机器专属：本机 CLI 权限白名单，含绝对路径，不入库
 .qoder/settings.local.json
+# 仓库公开，以下三份只留本地：嘉立创硬件工程（含网表/BOM）、灯珠手册 PDF、校内赛工作记录
+ProPrj_装甲板_*.epro2
+docs/E1004CAA80592E31D08BFE019083806F.pdf
+校内赛装甲板工作记录.md
